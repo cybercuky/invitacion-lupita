@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Mis 60's Lupita</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body{margin:0;font-family:'Georgia',serif;background:#000;color:#f5e6b8;overflow-x:hidden;text-align:center;}
+#trailer{position:fixed;inset:0;background:#000;display:flex;flex-direction:column;justify-content:center;align-items:center;z-index:9999;animation:fadeOut 2s forwards;animation-delay:10s;}
+#trailer h1,#trailer h2{color:#ffd700;letter-spacing:4px;opacity:0;animation:cinemaText 3s forwards;}
+#trailer h1{font-size:42px;animation-delay:1s;}
+#trailer h2{font-size:28px;animation-delay:4s;}
+@keyframes cinemaText{to{opacity:1;transform:scale(1);}}
+@keyframes fadeOut{to{opacity:0;visibility:hidden;}}
+section{padding:35px 15px;}
+.card{background:rgba(0,0,0,.9);border-radius:26px;padding:30px 22px;max-width:430px;margin:25px auto;box-shadow:0 0 30px rgba(212,175,55,.8);}
+.logo{max-width:180px;margin-bottom:15px;}
+h1{color:#ffd700;}
+h2,h3{color:#d4af37;}
+.btn{display:block;margin:14px auto;padding:14px;max-width:320px;background:linear-gradient(45deg,#8f6b1f,#ffd700,#8f6b1f);color:#000;text-decoration:none;border-radius:30px;font-weight:bold;}
+.countdown{font-size:26px;color:#ffd700;margin-top:15px;}
+video{width:100%;border-radius:20px;}
+select{padding:10px;border-radius:20px;border:1px solid #ffd700;background:#000;color:#ffd700;}
+.note{font-size:14px;color:#ffd700;margin-top:8px;}
+.firework{position:fixed;pointer-events:none;z-index:999;width:6px;height:6px;border-radius:50%;background:#ffd700;animation:explode 1.5s ease-out forwards;}
+@keyframes explode{to{transform:scale(8);opacity:0;}}
+</style>
+</head>
+<body>
+
+<div id="trailer">
+<h1>UNA HISTORIA INOLVIDABLE</h1>
+<h2>PRÓXIMAMENTE</h2>
+<h1 style="margin-top:30px;">MIS 60's<br>LUPITA</h1>
+</div>
+
+<audio id="music" loop>
+<source src="musica.mp3" type="audio/mpeg">
+</audio>
+
+<section>
+<div class="card">
+<img src="LOGO.jpeg" class="logo">
+<h1>MIS 60's</h1>
+<h2>LUPITA</h2>
+<p>Acompáñame a celebrar la vida</p>
+<p><b>7 de Marzo de 2026</b><br>15:00 hrs</p>
+<div class="countdown" id="countdown"></div>
+<button class="btn" id="musicBtn">🔊 Activar música</button>
+</div>
+</section>
+
+<section><div class="card">
+<video autoplay loop muted playsinline><source src="videom.mp4" type="video/mp4"></video>
+</div></section>
+
+<section><div class="card">
+<h3>📍 Dirección</h3>
+<p>Lago del Oso esquina Calle del Ejido<br>Colonia Ocho Cedros<br>Toluca, México</p>
+<a class="btn" target="_blank" href="https://maps.app.goo.gl/Yc1K3hVfVB7M4aFF9">Ver ubicación</a>
+</div></section>
+
+<section><div class="card">
+<h3>📲 Confirmación de asistencia</h3>
+<select id="personas">
+<option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+</select>
+<a class="btn" href="#" onclick="confirmar()">Confirmar por WhatsApp</a>
+<div class="note">⏰ FECHA LÍMITE PARA CONFIRMAR: <b>2 DE FEBRERO</b></div>
+</div></section>
+
+<script>
+const eventDate=new Date("March 7, 2026 15:00:00").getTime();
+const countdown=document.getElementById("countdown");
+musicBtn.onclick=()=>{music.play();musicBtn.style.display="none";}
+setInterval(()=>{
+const diff=eventDate-Date.now();
+if(diff<=0){countdown.innerHTML="🎆 ¡HOY ES EL GRAN DÍA! 🎆";fireworks();return;}
+const d=Math.floor(diff/86400000);
+const h=Math.floor(diff%86400000/3600000);
+const m=Math.floor(diff%3600000/60000);
+countdown.innerHTML=`⏳ ${d} días ${h} h ${m} min`;
+},1000);
+function confirmar(){
+const p=document.getElementById("personas").value;
+window.open("https://wa.me/527224934635?text="+encodeURIComponent("Hola, confirmo mi asistencia a los 60's de Lupita. Asistiremos "+p+" personas."));
+}
+function fireworks(){
+for(let i=0;i<12;i++){
+let f=document.createElement("div");
+f.className="firework";
+f.style.left=Math.random()*100+"vw";
+f.style.top=Math.random()*50+"vh";
+document.body.appendChild(f);
+}}
+</script>
+
+</body>
+</html>
